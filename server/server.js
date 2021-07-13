@@ -3,8 +3,7 @@ const path = require("path");
 const fs = require("fs"); // Currently unused
 let app = express();
 
-app.use(express.urlencoded({ extended: false })) // parses form data
-
+app.use(express.urlencoded({ extended: false })); // parses form data
 
 // This console logs the request original Url & request url when serving client
 // app.use((req, res, next) => {
@@ -15,13 +14,17 @@ app.use(express.urlencoded({ extended: false })) // parses form data
 // });
 
 app.post("/contact-form", (req, res) => {
-const newMessage = {
+  const newMessage = {
     email: req.body.email,
-    message: req.body.message
-}
+    message: req.body.message,
+  };
 
+  fs.appendFileSync("contact.json", JSON.stringify(newMessage), (err) => {
+    if (err) console.log(err);
+  });
+  
   console.log(req.body.text);
-  res.send(`Thank you for submitting your form! ${"\n"}
+  res.send(`Thank you for submitting your form! \n
   Email: ${newMessage.email}
   Message: ${newMessage.message}`);
 });
