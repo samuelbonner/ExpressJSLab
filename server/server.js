@@ -19,10 +19,18 @@ app.post("/contact-form", (req, res) => {
     message: req.body.message,
   };
 
-  fs.appendFileSync("contact.json", JSON.stringify(newMessage), (err) => {
-    if (err) console.log(err);
+  fs.readFile('contact.json', (err, data) => {
+    const messageArray = JSON.parse(data);
+
+    messageArray.push(newMessage)
+
+    fs.writeFile('contact.json', JSON.stringify(messageArray), (err) => {
+      if (err) console.log(err);
+    });
+
   });
-  
+
+
   console.log(req.body.text);
   res.send(`Thank you for submitting your form! \n
   Email: ${newMessage.email}
