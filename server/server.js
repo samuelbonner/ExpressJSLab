@@ -29,10 +29,13 @@ app.post("/contact-form", (req, res) => {
     });
   });
 
-  console.log(req.body.text);
-  res.send(`Thank you for submitting your form! \n
-  Email: ${newMessage.email}
-  Message: ${newMessage.message}`);
+  res.redirect('/formsubmissions');
+  
+//   console.log(req.body.text);
+//   res.send(`Thank you for submitting your form! \n
+//   Email: ${newMessage.email}
+//   Message: ${newMessage.message}`);
+
 });
 
 app.get("/formsubmissions", (req, res) => {
